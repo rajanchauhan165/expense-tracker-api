@@ -17,31 +17,30 @@ import jakarta.persistence.Id;
 public class Expense {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long expense_id;
-	private String expense_name;
+	private Long id;
+	private String name;
 	private String description;
 	private BigDecimal amount;
 	private String category;
 	private LocalDate date;
 	@Column(nullable = false, updatable = false)
 	@CreationTimestamp
-	private Timestamp created_at;
+	private Timestamp createdAt;
 	@UpdateTimestamp
-	private Timestamp updated_at;
+	private Timestamp updatedAt;
 	
-	
-	//getterSetters
-	public Long getExpense_id() {
-		return expense_id;
+	//getterSetter
+	public Long getId() {
+		return id;
 	}
-	public void setExpense_id(Long expense_id) {
-		this.expense_id = expense_id;
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public String getExpense_name() {
-		return expense_name;
+	public String getName() {
+		return name;
 	}
-	public void setExpense_name(String expense_name) {
-		this.expense_name = expense_name;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getDescription() {
 		return description;
@@ -67,16 +66,16 @@ public class Expense {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-	public Timestamp getCreated_at() {
-		return created_at;
+	public Timestamp getCreatedAt() {
+		return createdAt;
 	}
-	public void setCreated_at(Timestamp created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
 	}
-	public Timestamp getUpdated_at() {
-		return updated_at;
+	public Timestamp getUpdatedAt() {
+		return updatedAt;
 	}
-	public void setUpdated_at(Timestamp updated_at) {
-		this.updated_at = updated_at;
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 }

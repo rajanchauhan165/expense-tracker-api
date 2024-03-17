@@ -1,6 +1,8 @@
 package com.rajan.eta.Controller;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +17,14 @@ public class ExpenseController {
 	@Autowired
 	private ExpenseService expenseService;
 	
+	@GetMapping("/expenses/{expense_id}")
+	public Expense getExpenseById(@PathVariable Long expense_id) {
+		return expenseService.getExpenseById(expense_id);
+	}
+	
 	@GetMapping("/expenses")
-	public List<Expense> getAllExpenses() {
-		return expenseService.getAllExpenses();
+	public List<Expense> getAllExpenses(Pageable page) {
+		return expenseService.getAllExpenses(page).toList();
 	}
 	
 	@PostMapping("/expenses")
