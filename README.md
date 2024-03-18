@@ -10,6 +10,7 @@ Expense Tracker API app built on Spring Boot and Java, seamlessly integrated wit
 - Login
 - Pagination
 - Sorting Expenses
+- Filters
 - Add, Update, Delete & View Expenses
 
 

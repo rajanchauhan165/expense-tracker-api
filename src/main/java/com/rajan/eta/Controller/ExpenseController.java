@@ -1,4 +1,5 @@
 package com.rajan.eta.Controller;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -54,5 +55,10 @@ public class ExpenseController {
 	@GetMapping("/expenses/name")
 	public List<Expense> findByNameContaining(@RequestParam String keyword, Pageable page){
 		return expenseService.findByNameContaining(keyword, page);
+	}
+	
+	@GetMapping("/expenses/date")
+	public List<Expense> findByDateBetween(@RequestParam LocalDate start,@RequestParam LocalDate end, Pageable page){
+		return expenseService.findByDateBetween(start, end, page);
 	}
 }

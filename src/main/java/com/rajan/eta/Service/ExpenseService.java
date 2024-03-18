@@ -1,4 +1,5 @@
 package com.rajan.eta.Service;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -14,4 +15,5 @@ public interface ExpenseService {
 	public String deletExpense(Long id)throws ExpenseException;
 	public List<Expense> findByCategory(String category, Pageable page);
 	public List<Expense> findByNameContaining(String keyword, Pageable page);
+	public List<Expense> findByDateBetween(LocalDate start, LocalDate end, Pageable page);
 }

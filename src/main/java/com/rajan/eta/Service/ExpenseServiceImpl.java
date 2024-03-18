@@ -1,4 +1,5 @@
 package com.rajan.eta.Service;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,6 +89,19 @@ public class ExpenseServiceImpl implements ExpenseService{
 		}
 		else {
 			return responsePage.toList();
+		}
+	}
+
+	@Override
+	public List<Expense> findByDateBetween(LocalDate start, LocalDate end, Pageable page) {
+		if(start.isBefore(end)) {
+			return expenseRepo.findByDateBetween(start, end, page).toList();
+		}
+		else if (start.isAfter(end)) {
+			throw new ExpenseException("Start date cannot be after end date!");
+		}
+		else {
+			throw new ExpenseException("Please enter both start and end date!");
 		}
 	}
 }
