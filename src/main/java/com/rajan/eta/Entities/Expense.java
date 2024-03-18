@@ -12,16 +12,24 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Expense {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotBlank(message = "Expense name must not be blank!")
+	@Size(min = 3, message = "Expense name must not be less than 3 characters!")
 	private String name;
 	private String description;
+	@NotNull(message = "Expense amount must not be null!")
 	private BigDecimal amount;
+	@NotBlank(message = "Expense category must not be blank!")
 	private String category;
+	@NotNull(message = "Date must not be null!")
 	private LocalDate date;
 	@Column(nullable = false, updatable = false)
 	@CreationTimestamp

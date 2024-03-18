@@ -3,14 +3,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.rajan.eta.Entities.Expense;
 import com.rajan.eta.Service.ExpenseService;
+
+import jakarta.validation.Valid;
 
 @RestController
 public class ExpenseController {
@@ -28,12 +32,27 @@ public class ExpenseController {
 	}
 	
 	@PostMapping("/expenses")
-	public Expense addExpense(@RequestBody Expense expense) {
+	public Expense addExpense(@Valid @RequestBody Expense expense) {
 		return expenseService.addExpense(expense);
 	}
 	
 	@PutMapping("/expenses/{expense_id}")
 	public Expense updateExpense(@PathVariable Long expense_id, @RequestBody Expense expense) {
 		return expenseService.updateExpense(expense_id, expense);
+	}
+	
+	@DeleteMapping("/expenses/{expense_id}")
+	public String deleteExpense(@PathVariable Long expense_id) {
+		return expenseService.deletExpense(expense_id);
+	}
+	
+	@GetMapping("/expenses/category")
+	public List<Expense> findByCategory(@RequestParam String category, Pageable page){
+		return expenseService.findByCategory(category, page);
+	}
+	
+	@GetMapping("/expenses/name")
+	public List<Expense> findByNameContaining(@RequestParam String keyword, Pageable page){
+		return expenseService.findByNameContaining(keyword, page);
 	}
 }
