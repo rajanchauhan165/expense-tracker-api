@@ -19,6 +19,16 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 	
+	@ExceptionHandler(ItemAlreadyExistException.class)
+	public ResponseEntity<ErrorDetails> itemAlreadyExistExceptionHandler(ItemAlreadyExistException e, WebRequest wr){
+		ErrorDetails errorDetails = new ErrorDetails();
+		errorDetails.setTimeStamp(LocalDateTime.now());
+		errorDetails.setMessage(e.getMessage());
+		errorDetails.setStatusCode(HttpStatus.CONFLICT.value());
+		errorDetails.setDescription(wr.getDescription(false));
+		return new ResponseEntity<>(errorDetails,HttpStatus.CONFLICT);
+	}
+	
 	@ExceptionHandler(ExpenseException.class)
 	public ResponseEntity<ErrorDetails> expenseExceptionHandler(ExpenseException ee, WebRequest wr){
 		ErrorDetails errorDetails = new ErrorDetails();
@@ -37,6 +47,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 		errorDetails.setStatusCode(HttpStatus.BAD_REQUEST.value());
 		errorDetails.setDescription(wr.getDescription(false));
 		return new ResponseEntity<>(errorDetails,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(UserException.class)
+	public ResponseEntity<ErrorDetails> userNotFoundExceptionHandler(UserException e, WebRequest wr){
+		ErrorDetails errorDetails = new ErrorDetails();
+		errorDetails.setTimeStamp(LocalDateTime.now());
+		errorDetails.setMessage(e.getMessage());
+		errorDetails.setStatusCode(HttpStatus.NOT_FOUND.value());
+		errorDetails.setDescription(wr.getDescription(false));
+		return new ResponseEntity<>(errorDetails,HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler(Exception.class)
