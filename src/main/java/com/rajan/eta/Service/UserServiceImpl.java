@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.rajan.eta.Entities.User;
@@ -13,6 +14,9 @@ import com.rajan.eta.Exceptions.UserException;
 import com.rajan.eta.Repository.UserRepo;
 @Service
 public class UserServiceImpl implements UserService{
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private UserRepo userRepo;
@@ -25,6 +29,7 @@ public class UserServiceImpl implements UserService{
 		else {
 			User newUser = new User();
 			BeanUtils.copyProperties(user, newUser);
+			newUser.setPassword(passwordEncoder.encode(user.getPassword()));
 			return userRepo.save(newUser);
 		}
 
