@@ -16,7 +16,7 @@ Expense Tracker API app built on Spring Boot and Java, seamlessly integrated wit
 
 ## Tech Stack
 
-**Client:** Java, Spring Boot
+**Client:** Java (17), Spring Boot (3.1.9)
 
 **Server:** MySQL
 
