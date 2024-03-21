@@ -19,9 +19,10 @@ public class MyUserDetailsService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<User> optional = userRepo.findByEmail(username);
 		if(optional.isEmpty()) {
-			throw new UserException("User not found with email: "+username);
+			throw new UsernameNotFoundException("User not found with email: "+username);
 		}else {
-			return new org.springframework.security.core.userdetails.User(optional.get().getEmail(), optional.get().getPassword(), new ArrayList<>());
+			User retUser= optional.get();
+			return new org.springframework.security.core.userdetails.User(retUser.getEmail(), retUser.getPassword(), new ArrayList<>());
 		}
 	}
 

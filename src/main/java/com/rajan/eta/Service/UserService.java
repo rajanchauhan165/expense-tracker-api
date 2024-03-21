@@ -11,4 +11,5 @@ public interface UserService {
 	public User updateUser(Long userId, UserModel user);
 	public String deleteUser(Long userId);
 	public List<User> getAllUser();
+	public User getLoggedInUser();
 }

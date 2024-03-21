@@ -14,6 +14,9 @@ import com.rajan.eta.Repository.ExpenseRepo;
 public class ExpenseServiceImpl implements ExpenseService{
 	
 	@Autowired
+	private UserService userService;
+	
+	@Autowired
 	private ExpenseRepo expenseRepo;
 	
 	@Override
@@ -31,11 +34,12 @@ public class ExpenseServiceImpl implements ExpenseService{
 
 	@Override
 	public Page<Expense> getAllExpenses(Pageable page) {
-		return expenseRepo.findAll(page);
+		return expenseRepo.findByUserId(userService.getLoggedInUser().getId(), page);
 	}
 
 	@Override
 	public Expense addExpense(Expense expense) {
+		expense.setUser(userService.getLoggedInUser());
 		return expenseRepo.save(expense);
 	}
 

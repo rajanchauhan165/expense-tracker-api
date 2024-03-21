@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.rajan.eta.Entities.Expense;
 import java.time.LocalDate;
+import java.util.List;
+
 
 @Repository
 public interface ExpenseRepo extends JpaRepository<Expense, Long>{
@@ -12,4 +14,5 @@ public interface ExpenseRepo extends JpaRepository<Expense, Long>{
 	public Page<Expense> findByCategory(String category, Pageable page);
 	public Page<Expense> findByNameContaining(String keyword, Pageable page);
 	public Page<Expense> findByDateBetween(LocalDate startDate, LocalDate endDate, Pageable page);
+	public Page<Expense> findByUserId(Long id, Pageable page);
 }
