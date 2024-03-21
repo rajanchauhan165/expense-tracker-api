@@ -1,7 +1,4 @@
 package com.rajan.eta.Service;
-
-import java.util.List;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -9,7 +6,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.rajan.eta.Entities.User;
 import com.rajan.eta.Entities.UserModel;
 import com.rajan.eta.Exceptions.ItemAlreadyExistException;
@@ -35,17 +31,16 @@ public class UserServiceImpl implements UserService{
 			newUser.setPassword(passwordEncoder.encode(user.getPassword()));
 			return userRepo.save(newUser);
 		}
-
 	}
 
 	@Override
-	public User getUserById(Long userId) {
-		return userRepo.findById(userId).orElseThrow(() -> new UserException("User not found with Id: "+userId));
+	public User readUser() {
+		return userRepo.findById(getLoggedInUser().getId()).orElseThrow(() -> new UserException("User not found with Id: "+getLoggedInUser().getId()));
 	}
 
 	@Override
-	public User updateUser(Long userId, UserModel user) {
-		User existingUser = getUserById(userId);
+	public User updateUser(UserModel user) {
+		User existingUser = readUser();
 		existingUser.setName(user.getName()!=null?user.getName():existingUser.getName());
 		existingUser.setEmail(user.getEmail()!=null?user.getEmail():existingUser.getEmail());
 		existingUser.setPassword(user.getPassword()!=null?user.getPassword():existingUser.getPassword());
@@ -54,16 +49,12 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public String deleteUser(Long userId) {
-		User existingUser = getUserById(userId);
+	public String deleteUser() {
+		User existingUser = readUser();
 		userRepo.delete(existingUser);
-		return "User with Id: "+userId+" deleted successfully!";
+		return "User with Id: "+existingUser.getId()+" deleted successfully!";
 	}
 
-	@Override
-	public List<User> getAllUser() {
-		return userRepo.findAll();
-	}
 
 	@Override
 	public User getLoggedInUser() {
