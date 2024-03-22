@@ -27,7 +27,7 @@ public class WebSecurityConfig{
 			autz.requestMatchers("/login","/register").permitAll();
 			autz.anyRequest().authenticated();
 		})
-				.formLogin(Customizer.withDefaults()).httpBasic(Customizer.withDefaults())
+				.formLogin(formlogin->formlogin.disable()).httpBasic(Customizer.withDefaults())
 				.build();
 	}
 
