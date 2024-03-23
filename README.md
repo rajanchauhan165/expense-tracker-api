@@ -2,7 +2,7 @@
 # Expense Tracker API
 
 Expense Tracker API app built on Spring Boot and Java, seamlessly integrated with MySQL database. Easily record, categorize, and analyze expenses.
-
+Deployed link: https://eta.up.railway.app/
 
 ## Features
 
@@ -35,7 +35,7 @@ Takes JSON fields 'name' , 'email' , 'password' , 'age' and returns the register
 #### Login user
 
 ```http
-  POST /url/login
+  POST https://eta.up.railway.app/login
 ```
 
 Takes JSON fields 'email' , 'password' and returns the 200 OK status code if successfull.
@@ -43,7 +43,7 @@ Takes JSON fields 'email' , 'password' and returns the 200 OK status code if suc
 #### Read user
 
 ```http
-  GET /url/user
+  GET https://eta.up.railway.app/user
 ```
 
 Returns details of current user.
@@ -51,7 +51,7 @@ Returns details of current user.
 #### Update user
 
 ```http
-  PUT /url/user
+  PUT https://eta.up.railway.app/user
 ```
 
 Takes JSON fields and returns updated details of current user.
@@ -59,7 +59,7 @@ Takes JSON fields and returns updated details of current user.
 #### Delete user
 
 ```http
-  DELETE /url/user
+  DELETE https://eta.up.railway.app/user
 ```
 
 Delete current user and their expense records.
